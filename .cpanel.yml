@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/muddmjfi/rashan.uptocart.com
+    - /bin/cp * $DEPLOYPATH
+   
