@@ -23,72 +23,117 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        
         <!-- Small boxes (Stat box) -->
-        <div class="row">
+        <div class="card p-2">
+          <div class="card-header mb-2">Rashan Area</div>
+          <div class="row">
+            
+            @foreach($all_rashan as $key=>$rashan)
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
 
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+              <div class="small-box bg-info">
+               <center> <h4 class="badge badge-light">{{++$key}}</h4></center>
+                <div class="inner">
+                  <h3>{{$rashan->remaining}} / {{$rashan->qty}}</h3>
 
-                <p>Total Rashan</p>
+                  <p>{{$rashan->name}}</p>
+                  <p class="badge badge-dark">For {{$rashan->days}} Days</p>
+                   <p class="badge badge-dark">Items {{$rashan->rashanitems->count()}} </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('/rashan/'.$rashan->id)}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="{{ url('/rashan')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
+            @endforeach
+           
+           
+            <!-- ./col -->
+            
+            <!-- ./col -->
           </div>
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
 
-                <p>Remaining Rashan</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>22</h3>
-
-                <p>Rashan Given</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>12</h3>
-
-                <p>Pending Needy</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          
-          <!-- ./col -->
         </div>
+         
+         <div class="card p-2">
+           <div class="card-header mb-2">Needy Area</div>
+                      <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+
+              <div class="small-box bg-info">
+               
+                <div class="inner">
+                  <h3>{{$all_needy}}</h3>
+
+                  <p>All Needies</p>
+                 
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('/rashan/')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+
+              <div class="small-box bg-info">
+               
+                <div class="inner">
+                  <h3>{{ $pending_rashan_needy}}</h3>
+
+                  <p>Pending Needies</p>
+                 
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('/rashan/')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+
+              <div class="small-box bg-info">
+               
+                <div class="inner">
+                  <h3>{{$given_rashan_needy}}</h3>
+
+                  <p>Rashan Given</p>
+                 
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('/rashan/')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+
+              <div class="small-box bg-info">
+               
+                <div class="inner">
+                  <h3>{{$all_needy}}</h3>
+
+                  <p>All Needys</p>
+                 
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('/rashan/')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+         </div>
+
         <!-- /.row -->
+
         <!-- Main row -->
        
         <!-- /.row (main row) -->

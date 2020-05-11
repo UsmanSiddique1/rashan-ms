@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rashan;
+use Auth;
+use App\RashanItem;
+use App\Needy;
+use App\NeedyHistory;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,7 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('User.dashboard');
+        $all_rashan = Rashan::where('user_id', Auth::id())->get();
+        $all_needy = Needy::where('user_id', Auth::id())->count();
+        $given_rashan_needy = Needy::where('user_id', Auth::id())->where('status', 'Given')->count();
+        $pending_rashan_needy = Needy::where('user_id', Auth::id())->where('status', 'Pending')->count();
+
+        return view('User.dashboard', compact('all_rashan', 'all_needy', 'given_rashan_needy', 'pending_rashan_needy'));
     }
 
     public function needies(){

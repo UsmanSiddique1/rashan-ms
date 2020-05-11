@@ -18,8 +18,13 @@ class CreateRashanItemsTable extends Migration
             $table->string('name');
             $table->string('qty');
             $table->string('unit');
-            $table->integer('rashan_id');
+            $table->integer('rashan_id')->unsigned();
             $table->timestamps();
+
+
+            $table->foreign('rashan_id')
+                  ->references('id')->on('rashans')
+                  ->onDelete('cascade');
         });
     }
 

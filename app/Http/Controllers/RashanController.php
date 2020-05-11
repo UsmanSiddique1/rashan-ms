@@ -7,6 +7,8 @@ use App\Rashan;
 use Auth;
 use App\RashanItem;
 use App\Needy;
+use App\NeedyHistory;
+use Carbon\Carbon;
 
 class RashanController extends Controller
 {
@@ -25,6 +27,16 @@ class RashanController extends Controller
     public function rashan(){
     	$rashan = Rashan::where('user_id', Auth::id())->get();
         return view('User.rashan', compact('rashan'));
+    }
+
+    public function rashan_del($id){
+
+        $rashan_del = Rashan::where('id', $id)->first();
+        foreach($rashan_del->rashanitems as $items){
+            $items->delete();
+        } 
+        $rashan_del->delete();
+        return redirect()->back()->with('msg', 'Rashan has been Deleted');
     }
     public function rashan_list($id){
     	$rashan_list = RashanItem::where('rashan_id', $id)->get();
@@ -68,7 +80,7 @@ class RashanController extends Controller
         $add_needy->name = $request['name'];
         $add_needy->phone = $request['phone'];
         $add_needy->cnic = $request['cnic'];
-        $add_needy->status = 'Pending';
+        $add_needy->status = 'Pending';        
         $add_needy->user_id = Auth::id();
         $add_needy->save();
 
@@ -104,11 +116,13 @@ class RashanController extends Controller
     public function needy_del($id){
 
         $needy_del = Needy::where('id', $id)->first();
+
         
         if ($needy_del->rashan_id != null) {
             
             $needy_rashan = Rashan::where('id', $needy_del->rashan_id)->first();
-            $needy_rashan->remaining = $needy_rashan->remaining + 1;
+            $needy_rashan->remaining += 1;
+            $needy_rashan->save();
 
         }
 
@@ -122,20 +136,35 @@ class RashanController extends Controller
     public function give_rashan(Request $request){
 
         $needy = Needy::where('id', $request['id'])->first();
-
+        $days = $request['days'];
         $needy->status = 'Given';
         $needy->rashan_id = $request['rashan_id'];
         $needy->user_id = Auth::id();
 
+        
+        $rashan = Rashan::where('id', $request['id'])->first();
+        $days = $rashan->days;
+      
+        $needy_history =new NeedyHistory;
+        $needy_history->needy_id = $request['id'];
+        $needy_history->status = 'Given';
+        $needy_history->rashan_id = $request['rashan_id'];
+        $needy_history->user_id = Auth::id();
+        $needy_history->rashan_count += 1;
+        $needy_history->start_date = Carbon::now();
+        $needy_history->end_date = Carbon::now()->addDays($days);
        
 
         $needy->save();
+        $needy_history->save(); 
+
 
 
         $remaining_rashan = Rashan::where('id', $request['rashan_id'])->first();
         $remaining_rashan->remaining -= 1;
 
         $remaining_rashan->save();
+
 
         return redirect()->back()->with('msg', 'Rashan Has been Given');
 
@@ -168,6 +197,7 @@ class RashanController extends Controller
     	$add_rashan->name = $request['name'];
     	$add_rashan->qty = $request['qty'];
         $add_rashan->remaining = $request['qty'];
+        $add_rashan->days = $request['days'];
     	$add_rashan->user_id = Auth::id();
     	$add_rashan->save();
 

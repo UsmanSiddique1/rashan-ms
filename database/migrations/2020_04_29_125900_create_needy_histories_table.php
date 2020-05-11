@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNeediesTable extends Migration
+class CreateNeedyHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateNeediesTable extends Migration
      */
     public function up()
     {
-        Schema::create('needies', function (Blueprint $table) {
+        Schema::create('needy_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('cnic');
-            $table->string('status');
-            $table->integer('rashan_id')->unsigned()->nullable();
-            $table->integer('rashan_count')->nullable();
+            $table->integer('needy_id')->unsigned();
+            $table->integer('rashan_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('given_date')->nullable();
+            $table->string('status');
+            $table->string('start_date');
+            $table->string('end_date');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateNeediesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('needies');
+        Schema::dropIfExists('needy_histories');
     }
 }

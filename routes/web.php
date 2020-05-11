@@ -28,6 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 /////**** Rashan
 Route::get('/rashan', 'RashanController@rashan')->name('rashan');
 Route::post('/add_rashan', 'RashanController@add_rashan')->name('add_rashan');
+Route::get('/rashan_del/{id}', 'RashanController@rashan_del')->name('rashan_del');
 Route::post('/give_rashan', 'RashanController@give_rashan')->name('give_rashan');
 Route::get('/rashan_list/{id}', 'RashanController@rashan_list')->name('rashan_list');
 

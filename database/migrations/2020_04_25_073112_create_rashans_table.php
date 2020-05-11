@@ -18,6 +18,7 @@ class CreateRashansTable extends Migration
             $table->string('name');
             $table->integer('qty');
             $table->integer('remaining');
+            $table->integer('days');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

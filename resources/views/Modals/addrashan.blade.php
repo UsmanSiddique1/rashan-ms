@@ -20,6 +20,11 @@
                  <label>Total Rashan (For Needies)</label>
                  <input name="qty" value="" class="form-control" placeholder="Enter Rashan Quantity">
                 </div>
+
+                <div class="form-group">
+                 <label>Add Days (For Rashan)</label>
+                 <input name="days" value="" class="form-control" placeholder="Enter Number of Days">
+                </div>
               
             </div>
             <div class="modal-footer justify-content-between">
